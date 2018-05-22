@@ -1,12 +1,22 @@
+"To install vundle, run 
+" > git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+" and then copy over the vimrc :D
 set nocompatible 
 filetype plugin indent on
 au BufNewFile,BufRead *.fold set filetype=javascript
 au BufNewFile,BufRead *.coffee set filetype=javascript
 
+if has("autocmd")
+  augroup templates
+    autocmd BufNewFile *.tex 0r ~/.vim/templates/skeleton.tex
+  augroup END
+endif
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 Bundle 'gmarik/vundle'
 
+Bundle 'rafi/awesome-vim-colorschemes'
 Bundle 'craigemery/vim-autotag'
 Bundle 'LaTeX-Box-Team/LaTeX-Box'
 Bundle 'LaTeX-Help'
@@ -23,7 +33,8 @@ set tags=./tags;,tags;
 
 syntax enable
 set background=dark
-colorscheme solarized
+colorscheme parsec
+hi Normal ctermbg=none
 
 nnoremap <silent> <S-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <S-j> :TmuxNavigateDown<cr>

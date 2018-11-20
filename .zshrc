@@ -2,12 +2,14 @@
 #PATH things
 
 export PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
-
+export PATH=~/miniconda3/bin:$PATH
 
 
 #Start things
 
 tmux
+cat .notetoself.txt
+
 
 #Antigen things
 
@@ -133,7 +135,7 @@ extract()
 			*.tgz)		tar -zxvf $1		;;
 			*.zip)		unzip $1		;;
 			*.Z) 		uncompress $1		;;
-			*.tar.xz)	tar -xvfJ $1		;;
+			*.tar.xz)	tar -xvf $1		;;
 			*)		echo "'$1' cannot be extracted/mounted via extract()" ;;
 		esac
 	else
@@ -173,7 +175,7 @@ block_list()
 
 unblock_list()
 {
-    source ~/Documents/blocker/unblock_list.sh
+   source ~/Documents/blocker/unblock_list.sh
 }
 
 #Aliases

@@ -22,6 +22,7 @@ Bundle 'LaTeX-Box-Team/LaTeX-Box'
 Bundle 'LaTeX-Help'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'davidhalter/jedi-vim'
 "Plugin 'christoomey/vim-tmux-navigator'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
@@ -32,6 +33,7 @@ let g:tmux_navigator_no_mappings = 1
 set tags=./tags;,tags;
 
 syntax enable
+set spell spelllang=en_us
 set background=dark
 colorscheme parsec
 hi Normal ctermbg=none

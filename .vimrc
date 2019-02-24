@@ -6,11 +6,12 @@ filetype plugin indent on
 au BufNewFile,BufRead *.fold set filetype=javascript
 au BufNewFile,BufRead *.coffee set filetype=javascript
 
-if has("autocmd")
-  augroup templates
-    autocmd BufNewFile *.tex 0r ~/.vim/templates/skeleton.tex
-  augroup END
-endif
+
+"if has("autocmd")
+"  augroup templates
+"    autocmd BufNewFile *.tex 0r ~/.vim/templates/skeleton.tex
+"  augroup END
+"endif
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()

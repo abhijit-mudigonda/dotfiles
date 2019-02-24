@@ -8,8 +8,6 @@ export PATH=~/miniconda3/bin:$PATH
 #Start things
 
 tmux
-cat .notetoself.txt
-
 
 #Antigen things
 
@@ -62,7 +60,7 @@ latex()
 	rm *.vim
     rm *.out
     echo $1
-    gnome-open ${1%.tex}.pdf
+    gnopen ${1%.tex}.pdf
 }
 
 localtex()
@@ -178,8 +176,23 @@ unblock_list()
    source ~/Documents/blocker/unblock_list.sh
 }
 
-#Aliases
-alias vi="vim"
+
+build_latex_project()
+{
+    cp ~/Documents/dotfiles/latex-things/preamble.tex .
+    cp ~/Documents/dotfiles/latex-things/macros.tex .
+    git init
+}
+
+new_tex()
+{
+    #go through directory tree for preamble/macro and add it in
+    #add the default header settings
+    #option for bibliography support
+    
+    
+}
+
 alias sshmit="ssh abhijitm@athena.dialup.mit.edu"
 alias t="task"
 export GOPATH=$HOME/work

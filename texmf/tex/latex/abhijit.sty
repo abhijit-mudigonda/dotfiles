@@ -1,9 +1,155 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{abhijitm}[06/21/19]
+
+%-----------------------------PREAMBLE-------------------------------------
+
+%Among other things, useful for typing words or names in other languages
+\RequirePackage[T1]{fontenc}
+
+\RequirePackage[utf8]{inputenc}
+
+%Page margins
+\RequirePackage[margin=1in]{geometry}
+%Get all the standard math/theorem/symbol things
+\RequirePackage{amsthm,amsmath,amssymb}
+
+%For drawing images
+\RequirePackage{tikz,xcolor,graphicx}
+%For drawing commutative diagrams
+\RequirePackage{tikz-cd}
+
+%Arrows with superscripts for exact sequences
+\RequirePackage{extarrows}
+
+%Lots of control over headers and footers
+\RequirePackage{fancyhdr}
+
+%Good tables
+\RequirePackage{booktabs}
+
+%Biblatex lets you do bibliographies!
+\RequirePackage[citestyle=alphabetic, backend=biber, bibstyle=authortitle]{biblatex}
+
+%Lets you do source code and code snippets
+\RequirePackage{listings}
+\lstset{
+    basicstyle=\small\ttfamily,
+    keywordstyle=\color{blue},
+    language=python,
+    xleftmargin=16pt,
+}
+
+%Custom labels on enumerate, doesn't seem to work properly
+\RequirePackage[shortlabels]{enumitem}
+
+%Line spacing
+%\RequirePackage{setspace}\onehalfspacing
+
+
+\RequirePackage{comment}
+
+%Use nicefrac for fractions in exponents and other places where fractions look ugly
+\RequirePackage{nicefrac}
+
+%hypertext links in document
+\RequirePackage[unicode]{hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue}
+
+%lets you do certain linebreaks?
+\RequirePackage{url}
+
+%Shows internal link keys, remove in final version 
+\RequirePackage[color]{showkeys} %add in 'final' into parameter to remove showkeys
+\renewcommand\showkeyslabelformat[1]{\scalebox{.8}{\normalfont\footnotesize\ttfamily#1}\hspace{-.5em}}
+% showkeys font
+\colorlet{refkey}{orange!20}
+\colorlet{labelkey}{blue!80}
+
+%Use \todo to add notes
+\RequirePackage[colorinlistoftodos]{todonotes}
+
+%Use \marginnote to add notes on the margin
+\RequirePackage{marginnote}
+\renewcommand*{\marginfont}{\footnotesize\sffamily}
+
+%tikz stuff
+\usetikzlibrary{calc}
+
+%% For drawing graphs (added by Abhijit Mudigonda)
+\usetikzlibrary{arrows, shapes} 
+\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
+\tikzstyle{selected vertex} = [vertex, fill=red!24]
+\tikzstyle{edge} = [draw,thick,-]
+\tikzstyle{weight} = [font=\small]
+\tikzstyle{selected edge} = [draw,line width=5pt,-,red!50]
+\tikzstyle{ignored edge} = [draw,line width=5pt,-,black!20]
+
+%% For figure illustration (added by Evan Chen)
+%\RequirePackage{asymptote}
+\RequirePackage{float}
+\RequirePackage{pgfplots}
+\usepgfplotslibrary{fillbetween}
+\graphicspath{ {images/} }
+
+% ------   Theorem Styles -------
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{fact}[theorem]{Fact}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{joke}{Joke}
+\newtheorem*{question}{Question}
+
+% ------   Section Styles -------
+%\renewcommand{\thesection}{\thechapter.\arabic{section}} %number sections as 1.1
+
+%\RequirePackage[explicit]{titlesec}
+%\titleformat{\section}[block]%
+%{\normalfont\bfseries\centering}%
+%{\sffamily\S\thesection}{0.5em}{#1}
+
+
+%\titleformat{\subsection}[block]%
+%{\normalfont\bfseries}%
+%{}{0.5em}{#1}%
+%{\hspace{-\parindent}\color{red}\small\sffamily\S\thesubsection}{0.8em}{#1}
+
+%\titleformat{\subsubsection}[runin]%
+%{\normalfont\small\bfseries}%
+%{}{0.5em}{#1}
+
+% ------ Table of contents -----
+\RequirePackage{titletoc}
+\setcounter{tocdepth}{2}
+%\setcounter{secnumdepth}{5}
+
+
+% ------ Comments -----
+\newif\ifnotes
+\notestrue
+
+
+%-------------------------------------MACROS-------------------------------
+
 %---------letters----------
 \renewcommand{\AA}{\mathbb{A}}
 \newcommand{\BB}{\mathbb{B}}
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\DD}{\mathbb{D}}
-\newcommand{\E}{\mathbb{E}}
+\newcommand{\EE}{\mathbb{E}}
 \newcommand{\FF}{\mathbb{F}}
 \newcommand{\GG}{\mathbb{G}}
 \newcommand{\HH}{\mathbb{H}}
@@ -124,7 +270,6 @@
 \newcommand{\ol}{\overline}
 \newcommand{\ul}{\underline}
 \renewcommand{\t}{\text}
-\newcommand{\f}{\frac}
 \newcommand{\interior}[1]{%
   {\kern0pt#1}^{\mathrm{o}}%
 }
@@ -184,5 +329,4 @@
 \def \TIME{{\mathsf{TIME}}}
 \def \SIZE{{\mathsf{SIZE}}}
 \def \ASIZE{{\mathsf{ASIZE}}}
-
 

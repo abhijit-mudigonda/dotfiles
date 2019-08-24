@@ -1,17 +1,33 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+unsetopt beep
+bindkey -v
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/abhijitm/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
 
 #PATH things
 
+SRILM=/home/abhijitm/swarayi/srilm
+MACHINE_TYPE=i686-m64
 export PATH=/usr/local/texlive/2016/bin/x86_64-linux:$PATH
-export PATH=~/miniconda3/bin:$PATH
-
+export PATH=$SRILM/bin/:$PATH
+export PATH=$SRILM/bin/$MACHINE_TYPE:$PATH
+export MANPATH=$SRILM/man:$MANPATH
+export PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
 
 #Start things
-
 tmux
-
+clear
 #Antigen things
 
-source ~/.antigen/antigen.zsh
+source ~/grease/antigen.zsh
 
 antigen use oh-my-zsh
 antigen bundle git
@@ -49,20 +65,6 @@ rpminstall()
     #Install rpm files
 	rpm -ivh $1
 }
-
-latex()
-{
-    #Compile a latex file and build and open the pdf
-	pdflatex $1 
-    pdflatex $1
-	rm *.log
-	rm *.aux
-	rm *.vim
-    rm *.out
-    echo $1
-    gnopen ${1%.tex}.pdf
-}
-
 localtex()
 {
     #This will only work if you run it
@@ -84,61 +86,17 @@ localtex()
     rm tmp.tex tmp.aux tmp.log tmp.out
 }
 
-gnopen()
-{
-    gnome-open $1
-}
-
-vimtex()
-{
-    cp ~/.default.tex .
-    mv .default.tex $1
-}
-
 cdmit()
 {
     #Jump to folder for a certain class
 	classname=$(echo $1 | sed 's/\.//g')
-    cd $(find /home/abhijit/Documents/mit/ -type d -name $classname -print)
+    cd $(find ~/mit/ -type d -name $classname -print)
 }
 
 openbook()
 {
     #Open a textbook given a partial string
-    gnome-open ~/Documents/textbooks/$(ls ~/Documents/textbooks/ | grep $1)
-}
-
-openpaper()
-{
-    #Open a paper given a partial string
-    gnome-open ~/Documents/papers/$(ls ~/Documents/papers/ | grep $1)
-}
-pharos()
-{
-    #Print to athena!
-	source ~/Documents/mitprint/print.sh $1 $2 $3 $4 $5
-}
-
-extract() 
-{
-	if [ -f $1 ]; then
-		case $1 in
-			*.tar.bz2) 	tar -jxvf $1		;;
-			*.tar.gz)	tar -zxvf $1		;;
-			*.bz2)		bunzhip2 $1		;;
-			*.dmg)		hdiutil mount $1	;;
-			*.gz)		gunzip $1		;;
-			*.tar)		tar -xvf $1		;;
-			*.tbz2)		tar -jxvf $1		;;
-			*.tgz)		tar -zxvf $1		;;
-			*.zip)		unzip $1		;;
-			*.Z) 		uncompress $1		;;
-			*.tar.xz)	tar -xvf $1		;;
-			*)		echo "'$1' cannot be extracted/mounted via extract()" ;;
-		esac
-	else
-		echo "'$1' is not a valid file"
-	fi
+    okular ~/textbooks/$(ls ~/textbooks/ | grep $1) &
 }
 
 gcal()
@@ -156,43 +114,29 @@ gcal()
     fi
 }
 
-block()
+clean_history()
 {
-    source ~/Documents/blocker/block.sh $1
+    cd ~
+    mv .histfile .histfile_bad
+    strings .histfile_bad > .histfile
+    fc -R .histfile
 }
 
-unblock()
+latex_dotfiles()
 {
-    source ~/Documents/blocker/unblock.sh $1
-}
-
-block_list()
-{
-    source ~/Documents/blocker/block_list.sh 
-}
-
-unblock_list()
-{
-   source ~/Documents/blocker/unblock_list.sh
+    ln -s ~/grease/dotfiles/latex-things/preamble.tex preamble.tex
+    ln -s ~/grease/dotfiles/latex-things/macros.tex macros.tex
+    echo "Don't make any changes to this file that you don't want in your permanent preamble/macros"
 }
 
 
-build_latex_project()
+tex2markdown()
 {
-    cp ~/Documents/dotfiles/latex-things/preamble.tex .
-    cp ~/Documents/dotfiles/latex-things/macros.tex .
-    git init
+    cat $1 | ~/blogging/tex2markdown/hack.sh | python3 ~/blogging/tex2markdown/tex2markdown.py 
 }
 
-new_tex()
-{
-    #go through directory tree for preamble/macro and add it in
-    #add the default header settings
-    #option for bibliography support
-    
-    
-}
-
+alias vi=vim
 alias sshmit="ssh abhijitm@athena.dialup.mit.edu"
 alias t="task"
 export GOPATH=$HOME/work
+

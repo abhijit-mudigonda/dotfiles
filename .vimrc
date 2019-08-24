@@ -6,7 +6,6 @@ filetype plugin indent on
 au BufNewFile,BufRead *.fold set filetype=javascript
 au BufNewFile,BufRead *.coffee set filetype=javascript
 
-
 "if has("autocmd")
 "  augroup templates
 "    autocmd BufNewFile *.tex 0r ~/.vim/templates/skeleton.tex
@@ -19,8 +18,7 @@ Bundle 'gmarik/vundle'
 
 Bundle 'rafi/awesome-vim-colorschemes'
 Bundle 'craigemery/vim-autotag'
-Bundle 'LaTeX-Box-Team/LaTeX-Box'
-Bundle 'LaTeX-Help'
+Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'davidhalter/jedi-vim'
@@ -30,13 +28,14 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-fugitive'
 
 let g:tex_flavor='latex'
+let g:Tex_ViewRule_dvi = 'okular' 
 let g:tmux_navigator_no_mappings = 1
 set tags=./tags;,tags;
 
 syntax enable
 set spell spelllang=en_us
 set background=dark
-colorscheme parsec
+colorscheme afterglow
 hi Normal ctermbg=none
 
 nnoremap <silent> <S-h> :TmuxNavigateLeft<cr>

@@ -122,6 +122,7 @@ clean_history()
     fc -R .histfile
 }
 
+
 latex_dotfiles()
 {
     ln -s ~/grease/dotfiles/latex-things/preamble.tex preamble.tex
@@ -138,5 +139,8 @@ tex2markdown()
 alias vi=vim
 alias sshmit="ssh abhijitm@athena.dialup.mit.edu"
 alias t="task"
+alias venv_create="python3 -m venv env"
+alias venv_activate="source env/bin/activate"
 export GOPATH=$HOME/work
+
 

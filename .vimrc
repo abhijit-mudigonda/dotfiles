@@ -1,4 +1,3 @@
-"To install vundle, run 
 " > git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 " and then copy over the vimrc :D
 set nocompatible 
@@ -54,3 +53,9 @@ set shellslash
 set grepprg=grep\ -nH\ $*
 
 imap jj <Esc>
+vmap nn <Esc>
+set pastetoggle=vv
+
+
+
+

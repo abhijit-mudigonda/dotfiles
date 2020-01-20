@@ -22,6 +22,14 @@ export PATH=$SRILM/bin/$MACHINE_TYPE:$PATH
 export MANPATH=$SRILM/man:$MANPATH
 export PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
 
+#gurobi install things
+
+export GUROBI_HOME="/opt/gurobi900/linux64"
+export PATH="${PATH}:${GUROBI_HOME}/bin"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib"
+
+#Other system variable things
+export EDITOR="/usr/bin/vim"
 #Start things
 tmux
 clear
@@ -95,8 +103,20 @@ cdmit()
 
 openbook()
 {
-    #Open a textbook given a partial string
-    okular ~/textbooks/$(ls ~/textbooks/ | grep $1) &
+    #Open a textbook given a bunch of partial string queries
+
+    BOOKLIST=$(ls /home/abhijitm/textbooks)
+    for query in "$@"
+    do
+        BOOKLIST=$(echo $BOOKLIST | grep "$query")
+    done
+    
+    if [ -z "$BOOKLIST" ]
+    then
+        echo "No books matched your query"
+    else
+        okular /home/abhijitm/textbooks/$(echo $BOOKLIST | head -1) &
+    fi
 }
 
 gcal()
@@ -128,6 +148,8 @@ latex_dotfiles()
     ln -s ~/grease/dotfiles/latex-things/preamble.tex preamble.tex
     ln -s ~/grease/dotfiles/latex-things/macros.tex macros.tex
     echo "Don't make any changes to this file that you don't want in your permanent preamble/macros"
+    touch $1.tex  
+    echo "input{preamble} \n input{macros} \n" >> $1.tex
 }
 
 
@@ -141,6 +163,21 @@ alias sshmit="ssh abhijitm@athena.dialup.mit.edu"
 alias t="task"
 alias venv_create="python3 -m venv env"
 alias venv_activate="source env/bin/activate"
+alias ob="openbook"
 export GOPATH=$HOME/work
+
+#Get vim bindings
+bindkey 'jj' vi-cmd-mode
+PS1+='${VIMODE}'
+#   '$' for normal insert mode
+#   a big red 'I' for command mode - to me this is 'NOT insert' because red
+function zle-line-init zle-keymap-select {
+    DOLLAR='%B%F{red}$%f%b '
+    GIANT_I='%B%F{green}I%f%b '
+    VIMODE="${${KEYMAP/vicmd/$DOLLAR}/(main|viins)/$GIANT_I}"
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
 
 

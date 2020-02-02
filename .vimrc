@@ -34,7 +34,7 @@ set tags=./tags;,tags;
 syntax enable
 set spell spelllang=en_us
 set background=dark
-colorscheme afterglow
+colorscheme deus
 hi Normal ctermbg=none
 
 nnoremap <silent> <S-h> :TmuxNavigateLeft<cr>

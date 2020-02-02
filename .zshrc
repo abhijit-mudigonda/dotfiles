@@ -164,6 +164,7 @@ alias t="task"
 alias venv_create="python3 -m venv env"
 alias venv_activate="source env/bin/activate"
 alias ob="openbook"
+alias latex="pdflatex"
 export GOPATH=$HOME/work
 
 #Get vim bindings
